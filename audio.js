@@ -1,19 +1,16 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const audio = document.getElementById('audio-player');
+document.addEventListener('DOMContentLoaded', function() {
+    var music = document.getElementById('backgroundMusic');
 
-  const playAudio = () => {
-    audio.play().then(() => {
-      console.log("Audio is playing");
-    }).catch(error => {
-      console.error('Playback prevented:', error);
-    });
-  };
+    // Function to start playing the music
+    function playMusic() {
+        music.play();
+        document.removeEventListener('click', playMusic);
+        document.removeEventListener('touchstart', playMusic);
+        document.removeEventListener('swipe', playMusic);
+    }
 
-  // Attempt to play the audio immediately (for desktop)
-  playAudio();
-
-  // If playback fails due to user interaction requirements, wait for a click or touch event
-  document.addEventListener('click', playAudio, { once: true });
-  document.addEventListener('touchstart', playAudio, { once: true });
+    // Add event listeners for user interaction
+    document.addEventListener('click', playMusic);
+    document.addEventListener('touchstart', playMusic);
+    document.addEventListener('swipe', playMusic);
 });
-
